@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import web.model.Car;
+import web.util.Colors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,5 +22,23 @@ public class HelloController {
 		model.addAttribute("messages", messages);
 		return "index";
 	}
-	
+
+	@RequestMapping(value = "/cars")
+	public String printCars(ModelMap carModel) {
+		List<Car> carList = new ArrayList<>();
+		carList.add(new Car("Honda", 883, Colors.red));
+		carList.add(new Car("Mercedes", 600, Colors.grey));
+		carList.add(new Car("Hyundai", 370, Colors.black));
+		carList.add(new Car("KIA", 625, Colors.white));
+		carList.add(new Car("Toyota", 100, Colors.blue));
+		return "car";
+	}
+
+//1. Создайте еще один контроллер, замаппленный на /сагс.
+//2. Создайте модель Саг с тремя произвольными полями.
+//3. Создайте список из 5 машин.
+//4. Создайте сервис с методом, который будет возвращать указанное число машин из созданного списка.
+//5. Создайте страницу car.html. Реализуйте создание таблицы с машинами из сервиса с помощью thymeleaf.
+//6. При запросе /cars выводить весь список. При запросе /cars?count=2 должен отобразиться список из 2 машин,
+//при cars?count=3 - из 3, итд. При cars >= 5 выводить весь список машин.
 }
