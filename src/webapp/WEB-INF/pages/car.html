@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>car</title>
 </head>
 <body>
-
+    <div>
+        <th:block th:each="crs : ${cars}">
+            <h1 th:text="${crs}"></h1>
+        </th:block>
+    </div>
 </body>
 </html>
