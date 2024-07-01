@@ -2,8 +2,7 @@ package web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import web.model.Car;
 import web.service.CarService;
 import web.service.CarServiceImp;
@@ -25,27 +24,18 @@ public class HelloController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/cars")
-	public String printCars(ModelMap carModel) {
-		List<Car> carList = new ArrayList<>();
-		carList.add(new Car("Honda", 883, Colors.red));
-		carList.add(new Car("Mercedes", 600, Colors.grey));
-		carList.add(new Car("Hyundai", 370, Colors.black));
-		carList.add(new Car("KIA", 625, Colors.white));
-		carList.add(new Car("Toyota", 100, Colors.blue));
-		CarService carService = new CarServiceImp(carList);
-		System.out.println(carService.getCarList(2));
-		carModel.addAttribute("cars", carList);
-		return "car";
-	}
-/*
-	@RequestMapping("/owners/{ownerId}")
-	class OwnerController {
-		@GetMapping("/pets/{petId}")
-		fun findPet(@PathVariable ownerId: Long, @PathVariable petId: Long): Pet {
-			// ...
-		}
-*/
+//	@RequestMapping(value = "/cars/count={carValue}")
+//	public String printCars(@PathVariable int carValue, ModelMap cars) {
+//		List<Car> carList = new ArrayList<>();
+//		carList.add(new Car("Honda", 883, Colors.red));
+//		carList.add(new Car("Mercedes", 600, Colors.grey));
+//		carList.add(new Car("Hyundai", 370, Colors.black));
+//		carList.add(new Car("KIA", 625, Colors.white));
+//		carList.add(new Car("Toyota", 100, Colors.blue));
+//		CarService carService = new CarServiceImp(carList);
+//		cars.addAttribute("cars", carService.getCarList(carValue));
+//		return "car";
+//	}
 
 //1. Создайте еще один контроллер, замаппленный на /сагс.
 //2. Создайте модель Саг с тремя произвольными полями.
