@@ -1,11 +1,14 @@
 package web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import web.model.Car;
+import web.model.User;
 import web.service.CarService;
 import web.service.CarServiceImp;
+import web.service.UserService;
 import web.util.Colors;
 
 import java.util.ArrayList;
@@ -13,6 +16,9 @@ import java.util.List;
 
 @Controller
 public class HelloController {
+
+	@Autowired
+	UserService userService;
 
 	@GetMapping(value = "/")
 	public String printWelcome(ModelMap model) {
@@ -24,6 +30,18 @@ public class HelloController {
 		return "index";
 	}
 
+	@GetMapping(value = "/users")
+	public String printUsers(ModelMap model) {
+		List<User> users = new ArrayList<>();
+		User user1 = new User("Vasya",35,"Ivanov");
+		User user2 = new User("Petya",23,"Petrov");
+		userService.add(user2);
+		System.out.println(user2);
+		users.add(user1);
+		users.add(user2);
+		model.addAttribute("users", users);
+		return "users";
+	}
 //	@RequestMapping(value = "/cars/count={carValue}")
 //	public String printCars(@PathVariable int carValue, ModelMap cars) {
 //		List<Car> carList = new ArrayList<>();
