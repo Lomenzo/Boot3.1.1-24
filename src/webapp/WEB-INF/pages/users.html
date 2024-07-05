@@ -5,6 +5,14 @@
     <title>usrs</title>
 </head>
 <body>
+<h1>Add new User</h1>
+<form action="#" th:action="@{/userApp}" th:object="${user}" method="post">
+    <p>Name: <input type="text" th:field="*{name}" /></p>
+    <p>Age: <input type="text" th:field="*{age}" /></p>
+    <p>LastName: <input type="text" th:field="*{lastname}" /></p>
+    <p><input type="submit" value="Create" /></p>
+</form>
+<br>
 <table>
     <thead>
     <tr>

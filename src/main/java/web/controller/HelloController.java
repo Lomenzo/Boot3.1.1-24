@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import web.model.Car;
 import web.model.User;
 import web.service.CarService;
@@ -13,6 +14,7 @@ import web.util.Colors;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class HelloController {
@@ -39,9 +41,72 @@ public class HelloController {
 		System.out.println(user2);
 		users.add(user1);
 		users.add(user2);
-		model.addAttribute("users", users);
+		List<User> usersFromDB = new ArrayList<>();
+		usersFromDB = userService.listUsers();
+		model.addAttribute("users", usersFromDB);
+		user2.setAge(50);
+		Optional<User> opt = userService.read(1L);
+		if (opt.isPresent()) {User testUserForPrintAndDelete = opt.get();
+							  System.out.println(testUserForPrintAndDelete);
+			} else {
+			System.out.println("no User with this ID");
+		}
+		userService.update(user2.getID(), user2);
+		Optional<User> opt2 = userService.read(user2.getID());
+		if (opt2.isPresent()) {User testUserForPrintAndDelete = opt2.get();
+			System.out.println(testUserForPrintAndDelete);
+		} else {
+			System.out.println("no User with this ID");
+		}
+
+//		User testUserforPritnAndDelete = userService.read(1L);
+//		userService.update(1L, user2);
+		userService.delete(user2);
+
 		return "users";
 	}
+
+	@RequestMapping(value = "/userApp", method = RequestMethod.POST)
+	public String userAdd(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap){
+
+//		ModelAndView modelAndView = new ModelAndView("users", user);
+//		modelMap.addAttribute(user);
+//		User newUser = new User(user.getName(), user.getAge(),user.getLastname());
+//		String name = user.getName();
+//		String lastName = user.getLastName();
+//		int salary = user.getSalary();
+		modelMap.addAttribute("user", user);
+		String name = user.getName();
+		String lastName = user.getLastname();
+		int age = user.getAge();
+
+		mm.addAttribute("name", user.getName());
+		mm.addAttribute("age", user.getAge());
+		mm.addAttribute("lastname", user.getLastname());
+
+
+
+		List<User> usersFromDB = new ArrayList<>();
+		usersFromDB = userService.listUsers();
+		mm.addAttribute("users", usersFromDB);
+		return "users";
+	}
+
+/*
+	@PostMapping(value = "/userApp")
+	public String addUserPostMethod(Model model, @ModelAttribute("userFormer") UserForm userForm, ModelMap modelMap) {
+
+	        model.addAttribute("userFormer", userForm);
+	String name = userForm.getName();
+	String lastName = userForm.getLastName();
+	int salary = userForm.getSalary();
+	User newUser = new User(name,lastName,salary);
+        userService.saveUser(newUser);
+	List<User> usersList = userService.getAllUsers();
+        modelMap.addAttribute("users", usersList);
+        return "userPage";
+*/
+
 //	@RequestMapping(value = "/cars/count={carValue}")
 //	public String printCars(@PathVariable int carValue, ModelMap cars) {
 //		List<Car> carList = new ArrayList<>();
