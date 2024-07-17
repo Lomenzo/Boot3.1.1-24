@@ -66,16 +66,18 @@ public class HelloController {
 		return "users";
 	}
 
-	@RequestMapping(value = "/userApp", method = RequestMethod.POST)
-	public String userAdd(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap){
-
+//	@RequestMapping(value = "/userapp", method = RequestMethod.POST)
+//	public String userAdd(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap){
+		@GetMapping(value = "/userapp")
+		public String printUsers(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap) {
 //		ModelAndView modelAndView = new ModelAndView("users", user);
 //		modelMap.addAttribute(user);
 //		User newUser = new User(user.getName(), user.getAge(),user.getLastname());
 //		String name = user.getName();
 //		String lastName = user.getLastName();
 //		int salary = user.getSalary();
-		modelMap.addAttribute("user", user);
+
+			modelMap.addAttribute("user", user);
 		String name = user.getName();
 		String lastName = user.getLastname();
 		int age = user.getAge();
@@ -91,6 +93,16 @@ public class HelloController {
 		mm.addAttribute("users", usersFromDB);
 		return "users";
 	}
+
+	@RequestMapping(value = "/useradd", method = RequestMethod.POST)
+	public String userOnlyAdd(@ModelAttribute("user") User user, ModelMap modelMap){
+		modelMap.addAttribute("name", user.getName());
+		modelMap.addAttribute("age", user.getAge());
+		modelMap.addAttribute("lastname", user.getLastname());
+		return "userAddPage";
+	}
+
+
 
 /*
 	@PostMapping(value = "/userApp")
