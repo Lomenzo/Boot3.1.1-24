@@ -66,10 +66,10 @@ public class HelloController {
 		return "users";
 	}
 
-//	@RequestMapping(value = "/userapp", method = RequestMethod.POST)
+	@RequestMapping(value = "/userapp", method = RequestMethod.POST)
 //	public String userAdd(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap){
-		@GetMapping(value = "/userapp")
-		public String printUsers(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap) {
+//	@GetMapping(value = "/userapp")
+	public String printUsers(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap) {
 //		ModelAndView modelAndView = new ModelAndView("users", user);
 //		modelMap.addAttribute(user);
 //		User newUser = new User(user.getName(), user.getAge(),user.getLastname());
@@ -77,22 +77,41 @@ public class HelloController {
 //		String lastName = user.getLastName();
 //		int salary = user.getSalary();
 
-			modelMap.addAttribute("user", user);
+			modelMap.addAttribute("user", user);		//геттеры для формы
 		String name = user.getName();
 		String lastName = user.getLastname();
 		int age = user.getAge();
 
-		mm.addAttribute("name", user.getName());
-		mm.addAttribute("age", user.getAge());
-		mm.addAttribute("lastname", user.getLastname());
+//		mm.addAttribute("name", user.getName());
+//		mm.addAttribute("age", user.getAge());
+//		mm.addAttribute("lastname", user.getLastname());
 
-
+		User misha = new User(name,age,lastName);
+		userService.add(misha);
 
 		List<User> usersFromDB = new ArrayList<>();
 		usersFromDB = userService.listUsers();
 		mm.addAttribute("users", usersFromDB);
 		return "users";
 	}
+
+
+	@GetMapping(value = "/userss")
+	public String printUserss(@ModelAttribute("user") User user, ModelMap mm, ModelMap modelMap) {
+		modelMap.addAttribute("user", user);
+		String name = user.getName();
+		String lastName = user.getLastname();
+		int age = user.getAge();
+		mm.addAttribute("name", user.getName());
+		mm.addAttribute("age", user.getAge());
+		mm.addAttribute("lastname", user.getLastname());
+		List<User> usersFromDB = new ArrayList<>();
+		usersFromDB = userService.listUsers();
+		mm.addAttribute("users", usersFromDB);
+		return "users";
+	}
+
+
 
 	@RequestMapping(value = "/useradd", method = RequestMethod.POST)
 	public String userOnlyAdd(@ModelAttribute("user") User user, ModelMap modelMap){
