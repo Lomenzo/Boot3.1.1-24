@@ -7,13 +7,11 @@ import java.util.Optional;
 
 public interface UserService {
     void add(User user);
-        List<User> listUsers();
-    //    Car getCarBySeriesAndModel (int series, String model);
-    //    User getUserByCarParams (int insertseries, String insertmodel);
+    List<User> listUsers();
 
     Optional<User> read(Long id);
 
-    void update(Long id, User user);
+    void update(User user);
 
     void delete(User user);
 }

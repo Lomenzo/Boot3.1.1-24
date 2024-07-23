@@ -35,7 +35,7 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public void update(Long id, User user) {
+    public void update(User user) {
         sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
 
