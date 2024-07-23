@@ -26,6 +26,8 @@
         <td th:text="${usr.name}"></td>
         <td th:text="${usr.age}"></td>
         <td th:text="${usr.lastname}"></td>
+        <td><a th:href="@{/delete/{id}(id=${usr.ID})}">Delete</a></td>
+        <td><a th:href="@{/userchange/{id}(id=${usr.ID})}">Change</a></td>
     </tr>
     </tbody>
 </table>

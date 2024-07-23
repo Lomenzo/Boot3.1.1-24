@@ -27,7 +27,7 @@ import java.util.Properties;
 //@EnableTransactionManagement//DAO CONFIG
 @EnableWebMvc
 @ComponentScan("web")
-public class WebConfig implements WebMvcConfigurer {
+public class    WebConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
 

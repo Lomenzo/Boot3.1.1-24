@@ -14,6 +14,7 @@ import java.util.List;
 @Controller
 public class CarController {
 
+    //cars?count=3
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public String getBarBySimplePathWithRequestParam(@RequestParam(value = "count", required = false) Integer count, ModelMap cars) {
         List<Car> carList = new ArrayList<>();
